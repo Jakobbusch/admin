@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link href="/MVVM/style.css" type="text/css" />
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src ="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+<script type="module">
+
+import Model from "./MVVM/Model.js"
+import ViewModel from './MVVM/ViewModel.js'
+
+window.init = async function(){
+	
+    const getProducts =''
+	const model = Model(getProducts)
+	const vm = ViewModel(document.getElementById('base'), model)
+	const app = new Vue(vm)
+};
+
+</script>
+
+</head>
+<body onload = "init()">	
+	<div id="base">
+        <button @click='getProducts()' class='primaryContained float-right' type="getProducts">get Products</button>
+
+
+
+
+
+
+
+    </div>
+<footer>
+	<h2 class="footerH">Administation Site For Ikea 3D Application</h2>
+	<p class="footerP">Database And User Management</p>
+</footer>
+</body>
+
+</html>
