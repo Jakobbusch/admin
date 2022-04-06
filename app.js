@@ -10,8 +10,8 @@ router.get('/',function(req,res){
 
 app.use('/', router);
 app.use('/MVVM',express.static('MVVM'))
-app.listen(process.env.port || 3000);
+//app.listen(process.env.port || 3000);
 
-console.log('Running at Port 3000');
+//console.log('Running at Port 3000');
 
 //https://bachelor-project-admin.herokuapp.com/
