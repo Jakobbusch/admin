@@ -11,7 +11,7 @@ return {
     el,
     data:{
       
-        products:"",
+        getProduct:model.getProducts
 
         
         },
@@ -24,11 +24,11 @@ return {
             async getProducts(){
                 
 
-                  const product = await fetch('https://batchelor-project-ikea.herokuapp.com/products').then(res => res.json())
+                  const getProduct = await fetch('https://batchelor-project-ikea.herokuapp.com/products').then(res => res.json())
                 
-                  console.log(product);
+                  console.log(getProduct);
                   
-                  }
+                  } 
               
    
 

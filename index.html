@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<link href="/MVVM/style.css" type="text/css" />
+<link rel="stylesheet" href="MVVM/style.css" type="text/css" />
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src ="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
 <script type="module">
@@ -9,31 +9,96 @@
 import Model from "./MVVM/Model.js"
 import ViewModel from './MVVM/ViewModel.js'
 
+
 window.init = async function(){
 	
-    const getProducts =''
+    const getProducts = await fetch('https://batchelor-project-ikea.herokuapp.com/products').then(res => res.json())
 	const model = Model(getProducts)
 	const vm = ViewModel(document.getElementById('base'), model)
 	const app = new Vue(vm)
 };
+
+function createProductTable() {
+var myTableDiv = document.getElementById("myDynamicTable");
+var headers = ["Product ID", "Name", "Type", "Price", "Width", "Height", "Weight","Barcode ID"];
+var table = document.createElement('TABLE');
+  table.border = '1';
+
+  var tableBody = document.createElement('TBODY');
+  table.appendChild(tableBody);
+
+  for (var i = 0; i < 3; i++) {
+    var tr = document.createElement('TR');
+    tableBody.appendChild(tr);
+
+    for (var j = 0; j < 4; j++) {
+      var td = document.createElement('TD');
+      td.width = '75';
+      td.appendChild(document.createTextNode("Cell " + i + "," + j));
+      tr.appendChild(td);
+    }
+  }
+  var header = table.createTHead();
+    var headerRow = header.insertRow(0);
+    for(var i = 0; i < headers.length; i++) {
+        headerRow.insertCell(i).innerHTML = headers[i];
+    }
+  myTableDiv.appendChild(table);
+
+myTableDiv.appendChild(table);
+}
+
+
+  
+createProductTable();
 
 </script>
 
 </head>
 <body onload = "init()">	
 	<div id="base">
-        <button @click='getProducts()' class='primaryContained float-right' type="getProducts">get Products</button>
-
-
-
-
-
-
-
+		<div id="Header">Administation Site For IKEA 3D Application</div>
+		<input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for Products..">
     </div>
+
+	
+
+	<table id = 'weather'>
+		<thead><tr><td>City</td></tr></thead>
+		<tbody id ='WeatherData'>
+			<tr v-for='p in getProducts'>
+				<td>{{p.productID}}</td>
+			
+
+			</tr>
+		</tbody>
+	</table>
+	
+	<div id="myDynamicTable"></div>
+
+	<table id="topTable" style="width:80%">
+		<tr><th colspan="4">Top 3 Product Statistics</th></tr>
+		<tr>
+			<td>1</th>
+		  	<td>Company</th>
+		  	<td>Contact</th>
+		  	<td>Country</th>
+		</tr>
+		<tr>
+			<td>2</th>
+			<td>Alfreds Futterkiste</td>
+			<td>Maria Anders</td>
+			<td>Germany</td>
+		</tr>
+		<tr>
+			<td>3</th>
+			<td>Centro comercial Moctezuma</td>
+			<td>Francisco Chang</td>
+			<td>Mexico</td>
+		</tr>
+	  </table>
 <footer>
-	<h2 class="footerH">Administation Site For Ikea 3D Application</h2>
-	<p class="footerP">Database And User Management</p>
+	<p class="footerP">Ikea admin page ....</p>
 </footer>
 </body>
 

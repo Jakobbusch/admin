@@ -10,7 +10,9 @@ router.get('/',function(req,res){
 
 app.use('/', router);
 app.use('/MVVM',express.static('MVVM'))
-app.listen(process.env.PORT || 5000);
+
+app.listen(process.env.PORT || 3000);
+//app.listen(process.env.PORT || 5000);
 
 //console.log('Running at Port 3000');
 

@@ -1,0 +1,67 @@
+body {
+  background-color: #FFCD00;
+}
+
+#myInput {
+
+  
+    
+    background-position: 10px 12px; /* Position the search icon */
+    background-repeat: no-repeat; /* Do not repeat the icon image */
+    width: 10%; /* Full-width */
+    font-size: 14px; /* Increase font-size */
+    padding: 12px 20px 12px 40px; /* Add some padding */
+    border: 1px solid #ddd; /* Add a grey border */
+    border-radius: 15pt;
+    margin-bottom: 12px; /* Add some space below the input */
+    display: block;
+    margin-right: auto;
+    margin-left: auto;
+    
+  
+  
+  }
+  #Header {
+      font-size: 30pt;
+      font: bold;
+      text-align: center;
+      margin-top: 2%;
+      margin-bottom: 3%;
+      color: #280071;
+  }
+  table {
+    border-collapse: collapse;
+    text-align: center;
+    background-color: white;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 3%;
+  }
+  table,th,td{
+    border: 2px #280071 solid;
+    padding:5px;
+
+ }
+ td{
+   font-size: 15px;
+   color: #280071;
+   font:bold
+ }
+ th{
+  background-color: white;
+  font-size: 20px;
+  font-weight: 700;
+  font-family: Arial;
+ 
+}
+.length{
+  width: 20%;
+}
+#topTable{
+  vertical-align: bottom;
+  width: 80%;
+}
+
+
+
+  
