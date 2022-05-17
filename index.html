@@ -12,71 +12,64 @@ import ViewModel from './MVVM/ViewModel.js'
 
 window.init = async function(){
 	
-    const getProducts = await fetch('https://batchelor-project-ikea.herokuapp.com/products').then(res => res.json())
-	const model = Model(getProducts)
+    const product = await fetch('http://localhost:8080/products').then(res => res.json())
+	const model = Model(product)
 	const vm = ViewModel(document.getElementById('base'), model)
 	const app = new Vue(vm)
+
 };
+	document.getElementById("logout").style.display = "none";
 
-function createProductTable() {
-var myTableDiv = document.getElementById("myDynamicTable");
-var headers = ["Product ID", "Name", "Type", "Price", "Width", "Height", "Weight","Barcode ID"];
-var table = document.createElement('TABLE');
-  table.border = '1';
-
-  var tableBody = document.createElement('TBODY');
-  table.appendChild(tableBody);
-
-  for (var i = 0; i < 3; i++) {
-    var tr = document.createElement('TR');
-    tableBody.appendChild(tr);
-
-    for (var j = 0; j < 4; j++) {
-      var td = document.createElement('TD');
-      td.width = '75';
-      td.appendChild(document.createTextNode("Cell " + i + "," + j));
-      tr.appendChild(td);
-    }
-  }
-  var header = table.createTHead();
-    var headerRow = header.insertRow(0);
-    for(var i = 0; i < headers.length; i++) {
-        headerRow.insertCell(i).innerHTML = headers[i];
-    }
-  myTableDiv.appendChild(table);
-
-myTableDiv.appendChild(table);
-}
-
-
-  
-createProductTable();
 
 </script>
 
 </head>
 <body onload = "init()">	
 	<div id="base">
+
+
+		<button @click='openForm()' class="login" id="login">Login</button>
+		<button @click='logout()' class="login" id="logout" >Logout</button>
+
 		<div id="Header">Administation Site For IKEA 3D Application</div>
 		<input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for Products..">
-    </div>
+   
 
+
+		<div class="form-popup" id="myForm">
+			<div class="form-container">
+			  <label for="username"><b>Username</b></label>
+			  <input v-model:value="username" type="text" placeholder="Enter Username" name="username" required>
+		  
+			  <label for="psw"><b>Password</b></label>
+			  <input v-model:value="psw" type="password" placeholder="Enter Password" name="psw"  required>
+		  
+			  <button type="submit" class="btn" @click='adminLogin()'>Login</button>
+			  <button type="button" class="btn cancel" @click="closeForm()">Close</button>
+			</div>
 	
-
-	<table id = 'weather'>
-		<thead><tr><td>City</td></tr></thead>
-		<tbody id ='WeatherData'>
-			<tr v-for='p in getProducts'>
-				<td>{{p.productID}}</td>
+		  </div>
+		
 			
+	<table id = 'product'>
+		<thead><tr><td style="color:white">Product ID</td><td style="color:white">Name</td><td style="color:white">Type</td><td style="color:white">Price</td><td style="color:white">Width</td><td style="color:white">Height</td><td style="color:white">Weight</td><td style="color:white">Action</td></tr></thead>
+		<tbody>
+			<tr v-for='p in product'>
+				<td>{{p.productID}}</td>
+				<td>{{p.productName}}</td>
+				<td>{{p.productType}}</td>
+				<td>{{p.productPrice}}</td>
+				<td>{{p.productWidth}}</td>
+				<td>{{p.productHeight}}</td>
+				<td>{{p.productWeight}}</td>
+				<td>Edit</td>
 
 			</tr>
 		</tbody>
 	</table>
 	
-	<div id="myDynamicTable"></div>
 
-	<table id="topTable" style="width:80%">
+	<table class="topTable" style="width:80%">
 		<tr><th colspan="4">Top 3 Product Statistics</th></tr>
 		<tr>
 			<td>1</th>
@@ -97,8 +90,9 @@ createProductTable();
 			<td>Mexico</td>
 		</tr>
 	  </table>
+	</div>
 <footer>
-	<p class="footerP">Ikea admin page ....</p>
+	<p class="footerP">Copyright © 2022 Jakob & Mathias - IKEA Bachelor Project</p>
 </footer>
 </body>
 

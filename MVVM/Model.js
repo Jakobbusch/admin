@@ -1,10 +1,10 @@
-const model = (getProducts,filter =() => true) =>{
-        const productmap = {}
+const model = (products,filter =() => true) =>{
+ 
 
-        getProducts.foreach(p => productmap[p.productID] =p)
+     
 
 
-    return {getProducts}
+    return {products}
 }
 
 export default model
