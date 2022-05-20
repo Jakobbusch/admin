@@ -72,8 +72,8 @@ return {
 
                   async logout(){
                   this.product = null;
-                  this.hideLogin();
-                  this.showLogout();
+                  this.showLogin();
+                  this.hideLogout();
                   location.reload();
 
                   },
