@@ -2,6 +2,8 @@
 
 export default (el, init_model) => {
     let model = init_model
+    let urlProd = 'https://batchelor-project-ikea.herokuapp.com/'
+    let urlDev = 'http://localhost:8080/'
 
 
 
@@ -15,7 +17,9 @@ return {
         username:"",
         psw:"",
         admin:"",
-        test1:""
+        test1:"",
+        inEdit:'',
+        productInEdit:""
         },
     
    
@@ -28,8 +32,12 @@ return {
           async closeForm() {
             document.getElementById("myForm").style.display = "none";
           },
-          
-
+          async test(t){
+            document.getElementById("test").style.display = "block";
+            this.inEdit = t;
+            this.productInEdit = {id:"",name:"",type:"",price:"",width:"",height:"",weight:""};
+            console.log("Setting product index inEdit to: " + this.inEdit);
+          },
           async hideLogin() {
             document.getElementById("login").style.display = "block";
           },
@@ -43,26 +51,11 @@ return {
             document.getElementById("logout").style.display = "none";
           },
 
-          async login(){
-
-        
-          let text ='{"adminUsername":"'+this.username+'" , '+'"adminPassword":"'+ this.psw +'"}';
-      
-
-            this.admin = await fetch('http://localhost:8080/admin/'+text).then(res => res.json())
-           
-      
-         
-            
-            
-            console.log(response);
-         
-            
-          },
+          
             async getProducts(){
                 
 
-                  const getProduct = await fetch('http://localhost:8080/products').then(res => res.json())
+                  const getProduct = await fetch(urlDev+'products').then(res => res.json())
                 
                   
                     this.product = getProduct;
@@ -84,7 +77,7 @@ return {
                 let admin ='{"username":"'+this.username+'" , '+'"password":"'+ this.psw +'"}';
       
 
-                const getLoginResponse = await fetch('http://localhost:8080/admin/'+admin).then(res => res.json())
+                const getLoginResponse = await fetch(urlDev+'admin/'+admin).then(res => res.json())
 
                   if(getLoginResponse == true){
                       this.getProducts();
@@ -95,7 +88,24 @@ return {
                   else{
                     window.alert("Username Or Password Is Incorrect");
                   }
-              } 
+              },
+              async updateProduct(){
+                const types = ["id","name","type","price","width","height","weight"]
+                console.log("Product in edit:" + this.product[this.inEdit].name);
+                //this.productInEdit.name = "TestName"
+                    
+                types.forEach(element => {
+                  let b = this.productInEdit[element];
+                  if(!b ==""){
+                    this.product[this.inEdit][element] =b;
+                  }
+                  
+                  //console.log(b)
+                });
+                console.log("New -> name:" + this.product[this.inEdit].name + " Type: " +this.product[this.inEdit].type)
+                document.getElementById("test").style.display = "none";
+                this.inEdit="";
+              }
    
 
 

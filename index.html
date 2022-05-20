@@ -12,7 +12,7 @@ import ViewModel from './MVVM/ViewModel.js'
 
 window.init = async function(){
 	
-    const product = await fetch('http://localhost:8080/products').then(res => res.json())
+    const product = ''// = await fetch('http://localhost:8080/products').then(res => res.json())
 	const model = Model(product)
 	const vm = ViewModel(document.getElementById('base'), model)
 	const app = new Vue(vm)
@@ -32,7 +32,7 @@ window.init = async function(){
 		<button @click='logout()' class="login" id="logout" >Logout</button>
 
 		<div id="Header">Administation Site For IKEA 3D Application</div>
-		<input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for Products..">
+		<input type="text" id="myInput" onkeyup="" placeholder="Search for Products..">
    
 
 
@@ -53,20 +53,32 @@ window.init = async function(){
 			
 	<table id = 'product'>
 		<thead><tr><td style="color:white">Product ID</td><td style="color:white">Name</td><td style="color:white">Type</td><td style="color:white">Price</td><td style="color:white">Width</td><td style="color:white">Height</td><td style="color:white">Weight</td><td style="color:white">Action</td></tr></thead>
+		<div class="editForm-popup" id="test">
+			<div class="editForm-container">
+				<input id="editInput" type="text"placeholder="name" v-model="productInEdit.name">
+				<input type="text" id="editInput" placeholder="Type"v-model="productInEdit.type">
+				<input type="text" id="editInput"placeholder="Price"v-model="productInEdit.price">
+				<input type="text" id="editInput"placeholder="Width"v-model="productInEdit.width">
+				<input type="text" id="editInput"placeholder="Height"v-model="productInEdit.height">
+				<input type="text" id="editInput"placeholder="Weight"v-model="productInEdit.weight">
+				<button @click="updateProduct()">Save</button>
+		</div>
 		<tbody>
-			<tr v-for='p in product'>
-				<td>{{p.productID}}</td>
-				<td>{{p.productName}}</td>
-				<td>{{p.productType}}</td>
-				<td>{{p.productPrice}}</td>
-				<td>{{p.productWidth}}</td>
-				<td>{{p.productHeight}}</td>
-				<td>{{p.productWeight}}</td>
-				<td>Edit</td>
+			
+			<tr v-for='(p, index) in product' :key="index">
+				<td>{{p.id}}</td>
+				<td>{{p.name}}</td>
+				<td>{{p.type}}</td>
+				<td>{{p.price}}</td>
+				<td>{{p.width}}</td>
+				<td>{{p.height}}</td>
+				<td>{{p.weight}}</td>
+				<td><button type="menu" @click="test(index)">Edit</td>
 
 			</tr>
 		</tbody>
 	</table>
+
 	
 
 	<table class="topTable" style="width:80%">
