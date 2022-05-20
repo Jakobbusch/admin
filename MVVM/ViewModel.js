@@ -81,7 +81,7 @@ return {
               async adminLogin(){
 
 
-                let admin ='{"adminUsername":"'+this.username+'" , '+'"adminPassword":"'+ this.psw +'"}';
+                let admin ='{"username":"'+this.username+'" , '+'"password":"'+ this.psw +'"}';
       
 
                 const getLoginResponse = await fetch('http://localhost:8080/admin/'+admin).then(res => res.json())
