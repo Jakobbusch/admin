@@ -2,7 +2,7 @@
 
 export default (el, init_model) => {
     let model = init_model
-    let urlProd = 'https://batchelor-project-ikea.herokuapp.com/'
+    let urlProd = 'http://batchelor-project-ikea.herokuapp.com/'
     let urlDev = 'http://localhost:8080/'
 
 
@@ -32,11 +32,12 @@ return {
           async closeForm() {
             document.getElementById("myForm").style.display = "none";
           },
-          async test(t){
-            document.getElementById("test").style.display = "block";
+          async openEdit(t){
+            document.getElementById("editFrom").style.display = "block";
             this.inEdit = t;
             this.productInEdit = {id:"",name:"",type:"",price:"",width:"",height:"",weight:""};
             console.log("Setting product index inEdit to: " + this.inEdit);
+            document.getElementById("updateDBButton").style.display ="block"
           },
           async hideLogin() {
             document.getElementById("login").style.display = "block";
@@ -89,6 +90,31 @@ return {
                     window.alert("Username Or Password Is Incorrect");
                   }
               },
+
+              async updateDatabase(){
+                  console.log("Update database with: " + this.product)
+                  document.getElementById("updateDBButton").style.display ="none"
+                  document.getElementById("editFrom").style.display ="none"
+
+
+                
+                                    fetch(urlDev+'updateProducts',  {
+                    method: 'PUT', // or 'PUT'
+                    headers: {
+                      'Content-Type': 'application/json', 'Access-Control-Allow-Origin':urlDev
+                    },
+                    body: JSON.stringify(this.product),
+                  })
+                  .then(product => {
+                    console.log('Success:', product);
+                  })
+                  .catch((error) => {
+                    console.error('Error:', error);
+                  });
+                  
+              },
+
+
               async updateProduct(){
                 const types = ["id","name","type","price","width","height","weight"]
                 console.log("Product in edit:" + this.product[this.inEdit].name);
@@ -99,11 +125,10 @@ return {
                   if(!b ==""){
                     this.product[this.inEdit][element] =b;
                   }
-                  
-                  //console.log(b)
+
                 });
                 console.log("New -> name:" + this.product[this.inEdit].name + " Type: " +this.product[this.inEdit].type)
-                document.getElementById("test").style.display = "none";
+                document.getElementById("editFrom").style.display = "none";
                 this.inEdit="";
               }
    
