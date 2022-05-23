@@ -126,6 +126,13 @@ display: none;
 #editInput{
 max-width: 60px;
 }
+.updateDBButton{
+ width: 200px;
+ margin-left: 73%;
+ position:fixed;
+ margin-top: 2%;
+ display: none;
+}
 
 /* Add styles to the form container */
 .form-container {

@@ -49,11 +49,13 @@ window.init = async function(){
 			</div>
 	
 		  </div>
+
+		  <div class="updateDBButton" id="updateDBButton" @click="updateDatabase()"><Button>Update Products in Database</Button></div>
 		
 			
 	<table id = 'product'>
 		<thead><tr><td style="color:white">Product ID</td><td style="color:white">Name</td><td style="color:white">Type</td><td style="color:white">Price</td><td style="color:white">Width</td><td style="color:white">Height</td><td style="color:white">Weight</td><td style="color:white">Action</td></tr></thead>
-		<div class="editForm-popup" id="test">
+		<div class="editForm-popup" id="editFrom">
 			<div class="editForm-container">
 				<input id="editInput" type="text"placeholder="name" v-model="productInEdit.name">
 				<input type="text" id="editInput" placeholder="Type"v-model="productInEdit.type">
@@ -73,7 +75,7 @@ window.init = async function(){
 				<td>{{p.width}}</td>
 				<td>{{p.height}}</td>
 				<td>{{p.weight}}</td>
-				<td><button type="menu" @click="test(index)">Edit</td>
+				<td><button type="menu" @click="openEdit(index)">Edit</td>
 
 			</tr>
 		</tbody>
