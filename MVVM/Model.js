@@ -1,10 +1,11 @@
 const model = (products,filter =() => true) =>{
  
-const productMap={}
-     
 
 
-    return {products,productMap}
+
+
+
+    return {products}
 }
 
 export default model

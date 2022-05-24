@@ -17,9 +17,9 @@ return {
         username:"",
         psw:"",
         admin:"",
-        test1:"",
         inEdit:'',
-        productInEdit:""
+        productInEdit:"",
+        statistics:'',
         },
     
    
@@ -57,10 +57,9 @@ return {
                 
 
                   const getProduct = await fetch(urlDev+'products').then(res => res.json())
-                
-                  
                     this.product = getProduct;
-                  console.log(this.product+ "hello");
+                    
+                 // console.log(this.product+ "hello");
                   
                   },
 
@@ -81,7 +80,8 @@ return {
                 const getLoginResponse = await fetch(urlDev+'admin/'+admin).then(res => res.json())
 
                   if(getLoginResponse == true){
-                      this.getProducts();
+                      await this.getProducts();
+                      this.refreshStatistic();
                       this.closeForm();
                       this.showLogin();
                       this.hideLogout();
@@ -99,7 +99,7 @@ return {
 
                 
                                     fetch(urlDev+'updateProducts',  {
-                    method: 'PUT', // or 'PUT'
+                    method: 'PUT',
                     headers: {
                       'Content-Type': 'application/json', 'Access-Control-Allow-Origin':urlDev
                     },
@@ -130,6 +130,24 @@ return {
                 console.log("New -> name:" + this.product[this.inEdit].name + " Type: " +this.product[this.inEdit].type)
                 document.getElementById("editFrom").style.display = "none";
                 this.inEdit="";
+              },
+
+              async refreshStatistic(){
+                let temp = this.product;
+                temp.sort((a,b)=>{
+                    return b.assembly.buildTime - a.assembly.buildTime;
+                });
+                temp = temp.slice(0,3);
+
+                this.statistics = temp;
+                console.log(this.product)
+
+                this.product.sort((a,b)=>{
+                  return a.name - b.name;
+
+              });
+              console.log(this.product)
+                
               }
    
 

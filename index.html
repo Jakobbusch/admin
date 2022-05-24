@@ -81,27 +81,14 @@ window.init = async function(){
 		</tbody>
 	</table>
 
-	
-
 	<table class="topTable" style="width:80%">
 		<tr><th colspan="4">Top 3 Product Statistics</th></tr>
-		<tr>
-			<td>1</th>
-		  	<td>Company</th>
-		  	<td>Contact</th>
-		  	<td>Country</th>
-		</tr>
-		<tr>
-			<td>2</th>
-			<td>Alfreds Futterkiste</td>
-			<td>Maria Anders</td>
-			<td>Germany</td>
-		</tr>
-		<tr>
-			<td>3</th>
-			<td>Centro comercial Moctezuma</td>
-			<td>Francisco Chang</td>
-			<td>Mexico</td>
+		<tr class="toptr"><td>ID</td><td>Name</td><td>BuildTime</td><td>Build Difficulty</td></tr>
+		<tr v-for="s in statistics">
+		<td>{{s.id}}</td>
+		<td>{{s.name}}</td>
+		<td>{{s.assembly.buildTime}}</td>
+		<td>{{s.assembly.buildDifficulty}}</td>
 		</tr>
 	  </table>
 	</div>
