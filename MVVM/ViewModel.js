@@ -2,6 +2,8 @@
 
 export default (el, init_model) => {
     let model = init_model
+    let urlProd = 'http://batchelor-project-ikea.herokuapp.com/'
+    let urlDev = 'http://localhost:8080/'
 
 
 
@@ -15,7 +17,9 @@ return {
         username:"",
         psw:"",
         admin:"",
-        test1:""
+        inEdit:'',
+        productInEdit:"",
+        statistics:'',
         },
     
    
@@ -28,8 +32,13 @@ return {
           async closeForm() {
             document.getElementById("myForm").style.display = "none";
           },
-          
-
+          async openEdit(t){
+            document.getElementById("editFrom").style.display = "block";
+            this.inEdit = t;
+            this.productInEdit = {id:"",name:"",type:"",price:"",width:"",height:"",weight:""};
+            console.log("Setting product index inEdit to: " + this.inEdit);
+            document.getElementById("updateDBButton").style.display ="block"
+          },
           async hideLogin() {
             document.getElementById("login").style.display = "block";
           },
@@ -43,30 +52,14 @@ return {
             document.getElementById("logout").style.display = "none";
           },
 
-          async login(){
-
-        
-          let text ='{"adminUsername":"'+this.username+'" , '+'"adminPassword":"'+ this.psw +'"}';
-      
-
-            this.admin = await fetch('http://localhost:8080/admin/'+text).then(res => res.json())
-           
-      
-         
-            
-            
-            console.log(response);
-         
-            
-          },
+          
             async getProducts(){
                 
 
-                  const getProduct = await fetch('http://localhost:8080/products').then(res => res.json())
-                
-                  
+                  const getProduct = await fetch(urlDev+'products').then(res => res.json())
                     this.product = getProduct;
-                  console.log(this.product+ "hello");
+                    
+                 // console.log(this.product+ "hello");
                   
                   },
 
@@ -84,10 +77,11 @@ return {
                 let admin ='{"username":"'+this.username+'" , '+'"password":"'+ this.psw +'"}';
       
 
-                const getLoginResponse = await fetch('http://localhost:8080/admin/'+admin).then(res => res.json())
+                const getLoginResponse = await fetch(urlDev+'admin/'+admin).then(res => res.json())
 
                   if(getLoginResponse == true){
-                      this.getProducts();
+                      await this.getProducts();
+                      this.refreshStatistic();
                       this.closeForm();
                       this.showLogin();
                       this.hideLogout();
@@ -95,7 +89,66 @@ return {
                   else{
                     window.alert("Username Or Password Is Incorrect");
                   }
-              } 
+              },
+
+              async updateDatabase(){
+                  console.log("Update database with: " + this.product)
+                  document.getElementById("updateDBButton").style.display ="none"
+                  document.getElementById("editFrom").style.display ="none"
+
+
+                
+                                    fetch(urlDev+'updateProducts',  {
+                    method: 'PUT',
+                    headers: {
+                      'Content-Type': 'application/json', 'Access-Control-Allow-Origin':urlDev
+                    },
+                    body: JSON.stringify(this.product),
+                  })
+                  .then(product => {
+                    console.log('Success:', product);
+                  })
+                  .catch((error) => {
+                    console.error('Error:', error);
+                  });
+                  
+              },
+
+
+              async updateProduct(){
+                const types = ["id","name","type","price","width","height","weight"]
+                console.log("Product in edit:" + this.product[this.inEdit].name);
+                //this.productInEdit.name = "TestName"
+                    
+                types.forEach(element => {
+                  let b = this.productInEdit[element];
+                  if(!b ==""){
+                    this.product[this.inEdit][element] =b;
+                  }
+
+                });
+                console.log("New -> name:" + this.product[this.inEdit].name + " Type: " +this.product[this.inEdit].type)
+                document.getElementById("editFrom").style.display = "none";
+                this.inEdit="";
+              },
+
+              async refreshStatistic(){
+                let temp = this.product;
+                temp.sort((a,b)=>{
+                    return b.assembly.buildTime - a.assembly.buildTime;
+                });
+                temp = temp.slice(0,3);
+
+                this.statistics = temp;
+                console.log(this.product)
+
+                this.product.sort((a,b)=>{
+                  return a.name - b.name;
+
+              });
+              console.log(this.product)
+                
+              }
    
 
 

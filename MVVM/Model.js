@@ -1,7 +1,8 @@
 const model = (products,filter =() => true) =>{
  
 
-     
+
+
 
 
     return {products}

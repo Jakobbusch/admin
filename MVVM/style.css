@@ -61,6 +61,10 @@ body {
 .length{
   width: 20%;
 }
+
+.toptr{
+  font-weight: bold;
+}
 .topTable{
 
   width: 80%;
@@ -115,11 +119,35 @@ text-align: center;
   z-index: 9;
 }
 
+.editForm-popup{
+display: none;
+  position: fixed;
+  margin-left: 31%;
+  margin-right: 31%;
+  width:fit-content;
+  
+}
+#editInput{
+max-width: 60px;
+}
+.updateDBButton{
+ width: 200px;
+ margin-left: 73%;
+ position:fixed;
+ margin-top: 2%;
+ display: none;
+}
+
 /* Add styles to the form container */
 .form-container {
   max-width: 300px;
   padding: 10px;
   background-color: white;
+}
+.editForm-container{
+  width:fit-content;
+  background-color: #555;
+  padding: 10px;
 }
 
 /* Full-width input fields */
