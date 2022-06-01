@@ -2,7 +2,7 @@
 
 export default (el, init_model) => {
     let model = init_model
-    let urlProd = 'http://batchelor-project-ikea.herokuapp.com/'
+    let urlProd = 'https://batchelor-project-ikea.herokuapp.com/'
     let urlDev = 'http://localhost:8080/'
 
 
@@ -56,7 +56,7 @@ return {
             async getProducts(){
                 
 
-                  const getProduct = await fetch(urlDev+'products').then(res => res.json())
+                  const getProduct = await fetch(urlProd+'products').then(res => res.json())
                     this.product = getProduct;
                     
                  // console.log(this.product+ "hello");
@@ -77,7 +77,7 @@ return {
                 let admin ='{"username":"'+this.username+'" , '+'"password":"'+ this.psw +'"}';
       
 
-                const getLoginResponse = await fetch(urlDev+'admin/'+admin).then(res => res.json())
+                const getLoginResponse = await fetch(urlProd+'admin/'+admin).then(res => res.json())
 
                   if(getLoginResponse == true){
                       await this.getProducts();
@@ -95,13 +95,11 @@ return {
                   console.log("Update database with: " + this.product)
                   document.getElementById("updateDBButton").style.display ="none"
                   document.getElementById("editFrom").style.display ="none"
-
-
-                
-                                    fetch(urlDev+'updateProducts',  {
+                  
+                                    fetch(urlProd+'updateProducts',  {
                     method: 'PUT',
                     headers: {
-                      'Content-Type': 'application/json', 'Access-Control-Allow-Origin':urlDev
+                      'Content-Type': 'application/json', 'Access-Control-Allow-Origin':urlProd
                     },
                     body: JSON.stringify(this.product),
                   })
@@ -118,7 +116,7 @@ return {
               async updateProduct(){
                 const types = ["id","name","type","price","width","height","weight"]
                 console.log("Product in edit:" + this.product[this.inEdit].name);
-                //this.productInEdit.name = "TestName"
+        
                     
                 types.forEach(element => {
                   let b = this.productInEdit[element];
